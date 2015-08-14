@@ -1,1 +1,1 @@
-# cowtent-application
+# Cowtent
