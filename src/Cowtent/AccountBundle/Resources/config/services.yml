@@ -1,0 +1,11 @@
+services:
+    cowtent.account.user.manager:
+        class: Cowtent\AccountBundle\Model\UserManager
+        arguments: [@doctrine, @security.encoder_factory, @cowtent.account.util.canonicalizer.default, @cowtent.account.util.canonicalizer.default]
+
+    cowtent.account.application.manager:
+        class: Cowtent\AccountBundle\Model\ApplicationManager
+        arguments: [@doctrine, @security.secure_random, @cowtent.account.util.canonicalizer.default]
+
+    cowtent.account.util.canonicalizer.default:
+        class: Cowtent\AccountBundle\Util\Canonicalizer

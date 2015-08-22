@@ -1,3 +1,15 @@
-app:
-    resource: "@AppBundle/Controller/"
+cowtent_application:
+    resource: "@CowtentApplicationBundle/Controller/"
     type:     annotation
+    prefix:   /account
+
+#cowtent_rest:
+#    resource: "@CowtentRestBundle/Controller/"
+#    type:     annotation
+#    prefix:   /api
+
+cowtent_rest:
+    resource: "@CowtentRestBundle/Resources/config/routing_all.yml"
+    type:     rest
+    prefix:   /api
+

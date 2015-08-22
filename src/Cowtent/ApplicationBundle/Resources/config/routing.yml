@@ -1,0 +1,3 @@
+cowtent_application_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CowtentApplicationBundle:Default:index }

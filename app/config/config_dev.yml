@@ -14,9 +14,15 @@ web_profiler:
 monolog:
     handlers:
         main:
-            type:   stream
-            path:   "%kernel.logs_dir%/%kernel.environment%.log"
-            level:  debug
+            type:     stream
+            path:     "%kernel.logs_dir%/%kernel.environment%.log"
+            level:    debug
+            channels: [!wsse]
+        wsse:
+            type:         stream
+            path:         %kernel.logs_dir%/%kernel.environment%.wsse.log
+#            level:        error
+            channels:     [wsse]
         console:
             type:   console
             bubble: false

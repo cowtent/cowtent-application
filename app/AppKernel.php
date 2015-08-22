@@ -8,15 +8,23 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
+          new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+          new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+          new Symfony\Bundle\TwigBundle\TwigBundle(),
+          new Symfony\Bundle\MonologBundle\MonologBundle(),
+          new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+          new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+          new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+          new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+          new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+          new AppBundle\AppBundle(),
+          new FOS\RestBundle\FOSRestBundle(),
+          new JMS\SerializerBundle\JMSSerializerBundle(),
+          new Cowtent\AccountBundle\CowtentAccountBundle(),
+          new Cowtent\ApplicationBundle\CowtentApplicationBundle(),
+          new Cowtent\DistributionBundle\CowtentDistributionBundle(),
+          new Cowtent\RemoteBundle\CowtentRemoteBundle(),
+          new Cowtent\RestBundle\CowtentRestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,0 +1,11 @@
+rest_user:
+    type:        rest
+    resource:    "CowtentRestBundle:User"
+    name_prefix: api_user_
+    prefix:      /user
+
+rest_application:
+    type:        rest
+    resource:    "CowtentRestBundle:Application"
+    name_prefix: api_application_
+    prefix:      /application

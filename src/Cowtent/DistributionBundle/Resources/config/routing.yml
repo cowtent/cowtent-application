@@ -1,0 +1,3 @@
+cowtent_distribution_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CowtentDistributionBundle:Default:index }
