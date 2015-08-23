@@ -62,11 +62,11 @@ class ApplicationController extends AbstractController
 
     /**
      * @param Request $request
-     * @Rest\Post("/resetSalt")
+     * @Rest\Post("/resetSecret")
      *
      * @return mixed
      */
-    public function resetSaltAction(Request $request)
+    public function resetSecretAction(Request $request)
     {
         /** @var Account $account */
         $account = $this->getAccount();
