@@ -5,6 +5,7 @@ namespace Cowtent\RestBundle\Security\Authentication\Provider;
 use Cowtent\AccountBundle\Entity\Application;
 use Cowtent\AccountBundle\Entity\User;
 use Cowtent\RestBundle\Security\Authentication\Token\WsseUserToken;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -41,15 +42,11 @@ class WsseProvider implements AuthenticationProviderInterface
      */
     public function authenticate(TokenInterface $token)
     {
-        $user = $this->userProvider->loadUserByUsername($token->getUsername());
+        /** @var WsseUserToken $token */
+        $user   = $this->userProvider->loadUserByUsername($token->getUsername());
+        $secret = $user->getApiKey() . '{' . $user->getSalt() . '}';
 
-        if ($user instanceof User) {
-            $secret = $user->getPassword();
-        } elseif ($user instanceof Application) {
-            $secret = $user->getApiKey() . '{' . $user->getSalt() . '}';
-        }
-
-        if ($user && $this->validateDigest($token->digest, $token->nonce, $token->created, $secret)) {
+        if ($this->validateDigest($token->digest, $token->nonce, $token->created, $secret)) {
             $authenticatedToken = new WsseUserToken($user->getRoles());
             $authenticatedToken->setUser($user);
 
