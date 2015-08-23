@@ -107,21 +107,26 @@ class ScriptHandler
         $fs = new Filesystem();
         $fs->mkdir(array($destinationDir));
 
-        if ($options['symfony-assets-install'] == 'symlink') {
-            $dir = getcwd();
-            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/bootstrap', $destinationDir . '/bootstrap');
-            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/plugins', $destinationDir . '/plugins');
-            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/css', $destinationDir . '/css');
-            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/js', $destinationDir . '/js');
-            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/img', $destinationDir . '/img');
-        } elseif ($options['symfony-assets-install'] == 'relative') {
-            $fs->symlink('../../' . $vendorDir . '/adminlte/bootstrap', $destinationDir . '/bootstrap');
-            $fs->symlink('../../' . $vendorDir . '/adminlte/plugins', $destinationDir . '/plugins');
-            $fs->symlink('../../' . $vendorDir . '/adminlte/dist/css', $destinationDir . '/css');
-            $fs->symlink('../../' . $vendorDir . '/adminlte/dist/js', $destinationDir . '/js');
-            $fs->symlink('../../' . $vendorDir . '/adminlte/dist/img', $destinationDir . '/img');
-        } else {
-            $event->getIO()->write(sprintf('Copy mechanism specified in composer.json is not supported.'));
+        switch ($options['symfony-assets-install']) {
+            case 'symlink':
+                $dir = getcwd();
+                $fs->symlink($dir . '/' . $vendorDir . '/adminlte/bootstrap', $destinationDir . '/bootstrap');
+                $fs->symlink($dir . '/' . $vendorDir . '/adminlte/plugins', $destinationDir . '/plugins');
+                $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/css', $destinationDir . '/css');
+                $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/js', $destinationDir . '/js');
+                $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/img', $destinationDir . '/img');
+                break;
+
+            case 'relative':
+                $fs->symlink('../../' . $vendorDir . '/adminlte/bootstrap', $destinationDir . '/bootstrap');
+                $fs->symlink('../../' . $vendorDir . '/adminlte/plugins', $destinationDir . '/plugins');
+                $fs->symlink('../../' . $vendorDir . '/adminlte/dist/css', $destinationDir . '/css');
+                $fs->symlink('../../' . $vendorDir . '/adminlte/dist/js', $destinationDir . '/js');
+                $fs->symlink('../../' . $vendorDir . '/adminlte/dist/img', $destinationDir . '/img');
+                break;
+
+            default:
+                $event->getIO()->write(sprintf('Copy mechanism specified in composer.json is not supported.'));
         }
     }
 
