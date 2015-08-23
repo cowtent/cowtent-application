@@ -12,18 +12,16 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
- * @Route("/account")
+ * @Route('/account')
  */
 class AccountController extends BaseController
 {
     /**
-     * @Route("/")
-     * @Method({"GET"})
+     * @Route('/')
+     * @Method({'GET'})
      */
     public function viewAction()
     {
-        $user = $this->getUser();
-
         $data = array(
             'user' => 'user_1',
         );
@@ -32,8 +30,8 @@ class AccountController extends BaseController
     }
 
     /**
-     * @Route("/update")
-     * @Method({"POST"})
+     * @Route('/update')
+     * @Method({'POST'})
      */
     public function updateAction()
     {
@@ -41,9 +39,9 @@ class AccountController extends BaseController
     }
 
     /**
-     * @Route("/login")
-     * @Method({"GET", "POST"})
-     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+     * @Route('/login')
+     * @Method({'GET', 'POST'})
+     * @Security('is_granted('IS_AUTHENTICATED_ANONYMOUSLY')')
      */
     public function loginAction(Request $request)
     {
@@ -59,7 +57,7 @@ class AccountController extends BaseController
         echo '';
 
         if (!$account) {
-            throw new UsernameNotFoundException("Account not found");
+            throw new UsernameNotFoundException('Account not found');
         } else {
             $token = new UsernamePasswordToken($user, null, 'your_firewall_name', $user->getRoles());
             $this->get('security.context')->setToken($token); //now the user is logged in
@@ -70,12 +68,12 @@ class AccountController extends BaseController
             $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
         }
 
-        return $this->renderJson($data);
+        return $this->renderJson(array());
     }
 
     /**
-     * @Route("/logout")
-     * @Method({"GET", "POST"})
+     * @Route('/logout')
+     * @Method({'GET', 'POST'})
      */
     public function logoutAction()
     {
