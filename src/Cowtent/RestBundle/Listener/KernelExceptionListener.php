@@ -37,7 +37,7 @@ class KernelExceptionListener
             'code'    => $code,
             'message' => $exception->getMessage(),
         );
-        $this->logger->err(print_r($debug, true));
+        $this->logger->error(print_r($debug, true));
 
         // HttpExceptionInterface est un type d'exception spécial qui
         // contient le code statut et les détails de l'entête
