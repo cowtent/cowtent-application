@@ -2,6 +2,8 @@
 
 **Cowtent** is an evolutive **Content Application** both accessible by Web Browser and by **Rest Api**.
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cowtent/cowtent-application/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cowtent/cowtent-application/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/cowtent/cowtent-application/badges/build.png?b=master)](https://scrutinizer-ci.com/g/cowtent/cowtent-application/build-status/master)
+
 Main features:
  - Multiple accounts *(like Saas profiles)*
  - Multiple users by account
@@ -15,8 +17,6 @@ Main features:
 Rest Api is built using Json format exchange with [WSSE security authentication](http://symfony.com/doc/current/cookbook/security/custom_authentication_provider.html#meet-wsse).
 
 **Still under hard development !**
-
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cowtent/cowtent-application/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cowtent/cowtent-application/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/cowtent/cowtent-application/badges/build.png?b=master)](https://scrutinizer-ci.com/g/cowtent/cowtent-application/build-status/master)
 
 ## Requirements
 
