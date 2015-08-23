@@ -32,13 +32,25 @@ class ScriptHandler
     );
 
     /**
-     * @param string $configName
-     * @param string $actionName
+     * @param CommandEvent $event
+     * @param string       $configName
+     * @param string       $path
+     * @param string       $actionName
+     *
+     * @return bool
      */
     protected static function hasDirectory(CommandEvent $event, $configName, $path, $actionName)
     {
         if (!is_dir($path)) {
-            $event->getIO()->write(sprintf('The %s (%s) specified in composer.json was not found in %s, can not %s.', $configName, $path, getcwd(), $actionName));
+            $message = sprintf(
+                'The %s (%s) specified in composer.json was not found in %s, can not %s.',
+                $configName,
+                $path,
+                getcwd(),
+                $actionName
+            );
+
+            $event->getIO()->write($message);
 
             return false;
         }
@@ -49,7 +61,7 @@ class ScriptHandler
     /**
      * Clears the Symfony cache.
      *
-     * @param $event CommandEvent A instance
+     * @param CommandEvent $event A instance
      */
     public static function clearCache(CommandEvent $event)
     {
@@ -78,7 +90,7 @@ class ScriptHandler
      * strict user permission checks (which can be done on Windows 7 but not on Windows
      * Vista).
      *
-     * @param $event CommandEvent A instance
+     * @param CommandEvent $event A instance
      */
     public static function installAssets(CommandEvent $event)
     {
@@ -99,6 +111,7 @@ class ScriptHandler
 
         if (!is_dir($vendorDir)) {
             $event->getIO()->write(sprintf('The "%s" folder specified in composer.json was not found.', $vendorDir));
+
             return;
         }
 
@@ -131,8 +144,10 @@ class ScriptHandler
     }
 
     /**
-     * @param string $consoleDir
-     * @param string $cmd
+     * @param CommandEvent $event
+     * @param string       $consoleDir
+     * @param string       $cmd
+     * @param int          $timeout
      */
     protected static function executeCommand(CommandEvent $event, $consoleDir, $cmd, $timeout = 300)
     {
@@ -143,13 +158,32 @@ class ScriptHandler
             $console .= ' --ansi';
         }
 
-        $process = new Process($php . ($phpArgs ? ' ' . $phpArgs : '') . ' ' . $console . ' ' . $cmd, null, null, null, $timeout);
-        $process->run(function($type, $buffer) use ($event) { $event->getIO()->write($buffer, false); });
+        $process = new Process(
+            $php . ($phpArgs ? ' ' . $phpArgs : '') . ' ' . $console . ' ' . $cmd,
+            null,
+            null,
+            null,
+            $timeout
+        );
+
+        $process->run(
+            function ($type, $buffer) use ($event) {
+                $event->getIO()->write($buffer, false);
+            }
+        );
+
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException(sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd)));
+            throw new \RuntimeException(
+                sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd))
+            );
         }
     }
 
+    /**
+     * @param CommandEvent $event
+     *
+     * @return array
+     */
     protected static function getOptions(CommandEvent $event)
     {
         $options = array_merge(static::$options, $event->getComposer()->getPackage()->getExtra());
@@ -161,16 +195,27 @@ class ScriptHandler
         return $options;
     }
 
+    /**
+     * @param bool|true $includeArgs
+     *
+     * @return false|string
+     */
     protected static function getPhp($includeArgs = true)
     {
         $phpFinder = new PhpExecutableFinder();
         if (!$phpPath = $phpFinder->find($includeArgs)) {
-            throw new \RuntimeException('The php executable could not be found, add it to your PATH environment variable and try again');
+            $message = 'The php executable could not be found, add it ' .
+                'to your PATH environment variable and try again';
+
+            throw new \RuntimeException($message);
         }
 
         return $phpPath;
     }
 
+    /**
+     * @return array
+     */
     protected static function getPhpArguments()
     {
         $arguments = array();
@@ -199,7 +244,7 @@ class ScriptHandler
     {
         $options = static::getOptions($event);
 
-        if (static::useNewDirectoryStructure($options)) {
+        if (static::supportsNewDirectoryStructure($options)) {
             if (!static::hasDirectory($event, 'symfony-bin-dir', $options['symfony-bin-dir'], $actionName)) {
                 return;
             }
@@ -221,7 +266,7 @@ class ScriptHandler
      *
      * @return bool
      */
-    protected static function useNewDirectoryStructure(array $options)
+    protected static function supportsNewDirectoryStructure(array $options)
     {
         return isset($options['symfony-var-dir']) && is_dir($options['symfony-var-dir']);
     }
