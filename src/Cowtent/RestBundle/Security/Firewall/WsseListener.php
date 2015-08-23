@@ -35,19 +35,30 @@ class WsseListener implements ListenerInterface
      * @param AuthenticationManagerInterface $authenticationManager
      * @param LoggerInterface                $logger
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthenticationManagerInterface $authenticationManager, LoggerInterface $logger)
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        AuthenticationManagerInterface $authenticationManager,
+        LoggerInterface $logger
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->authenticationManager = $authenticationManager;
         $this->logger = $logger;
     }
 
+    /**
+     * @param GetResponseEvent $event
+     * @throws BadRequestHttpException
+     * @throws AccessDeniedHttpException
+     */
     public function handle(GetResponseEvent $event)
     {
         $request = $event->getRequest();
 
-        $wsseRegex = '/UsernameToken Username="([^"]+)", PasswordDigest="([^"]+)", Nonce="([^"]+)", Created="([^"]+)"/';
-        if (!$request->headers->has('x-wsse') || 1 !== preg_match($wsseRegex, $request->headers->get('x-wsse'), $matches)) {
+        $wsseRegex = '/UsernameToken Username="([^"]+)", ' .
+            'PasswordDigest="([^"]+)", Nonce="([^"]+)", Created="([^"]+)"/';
+
+        if (!$request->headers->has('x-wsse') ||
+            1 !== preg_match($wsseRegex, $request->headers->get('x-wsse'), $matches)) {
             throw new BadRequestHttpException('Missing WSSE headers.');
         }
 
@@ -63,7 +74,7 @@ class WsseListener implements ListenerInterface
             $this->tokenStorage->setToken($authToken);
         } catch (AuthenticationException $failed) {
             $failedMessage = 'WSSE Login failed. Why ? ' . $failed->getMessage();
-            $this->logger->err($failedMessage);
+            $this->logger->error($failedMessage);
 
             throw new AccessDeniedHttpException('WSSE Login failed.');
         }
