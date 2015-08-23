@@ -220,22 +220,7 @@ abstract class AbstractUser implements AdvancedUserInterface
      *
      * @return array The roles
      */
-    public function getRoles()
-    {
-        $roles = $this->roles;
-
-        if ($this instanceof User) {
-            /** @var Group $group */
-            foreach ($this->getGroups() as $group) {
-                $roles = array_merge($roles, $group->getRoles());
-            }
-        }
-
-        // we need to make sure to have at least one role
-        $roles[] = static::ROLE_DEFAULT;
-
-        return array_unique($roles);
-    }
+    abstract public function getRoles();
 
     /**
      * Never use this to check if this user has access to anything!

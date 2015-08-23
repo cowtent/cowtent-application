@@ -141,6 +141,26 @@ class User extends AbstractUser
     }
 
     /**
+     * Returns the user roles
+     *
+     * @return array The roles
+     */
+    public function getRoles()
+    {
+        $roles = $this->roles;
+
+        /** @var Group $group */
+        foreach ($this->getGroups() as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+
+        return array_unique($roles);
+    }
+
+    /**
      * Gets the timestamp that the user requested a password reset.
      *
      * @return null|\DateTime
