@@ -5,7 +5,6 @@ namespace Cowtent\RestBundle\Security\Authentication\Provider;
 use Cowtent\AccountBundle\Entity\Application;
 use Cowtent\AccountBundle\Entity\User;
 use Cowtent\RestBundle\Security\Authentication\Token\WsseUserToken;
-use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -35,6 +34,11 @@ class WsseProvider implements AuthenticationProviderInterface
         $this->cacheDir     = $cacheDir;
     }
 
+    /**
+     * @param TokenInterface $token
+     *
+     * @return WsseUserToken
+     */
     public function authenticate(TokenInterface $token)
     {
         $user = $this->userProvider->loadUserByUsername($token->getUsername());
@@ -86,9 +90,10 @@ class WsseProvider implements AuthenticationProviderInterface
             $duration = intval(file_get_contents($this->cacheDir.'/'.$nonce));
 
             if (($duration + 300) > time()) {
-//                throw new NonceExpiredException('Previously used nonce detected');
+                throw new NonceExpiredException('Previously used nonce detected');
             }
         }
+
         // If cache directory does not exist we create it
         if (!is_dir($this->cacheDir)) {
             mkdir($this->cacheDir, 0777, true);
@@ -101,6 +106,11 @@ class WsseProvider implements AuthenticationProviderInterface
         return StringUtils::equals($expected, $digest);
     }
 
+    /**
+     * @param TokenInterface $token
+     *
+     * @return bool
+     */
     public function supports(TokenInterface $token)
     {
         return $token instanceof WsseUserToken;
