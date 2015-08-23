@@ -36,8 +36,12 @@ class UserManager
      * @param CanonicalizerInterface  $usernameCanonicalizer
      * @param CanonicalizerInterface  $emailCanonicalizer
      */
-    public function __construct(Registry $doctrine, EncoderFactoryInterface $encoderFactory, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer)
-    {
+    public function __construct(
+        Registry $doctrine,
+        EncoderFactoryInterface $encoderFactory,
+        CanonicalizerInterface $usernameCanonicalizer,
+        CanonicalizerInterface $emailCanonicalizer
+    ) {
         $this->doctrine = $doctrine;
         $this->encoderFactory = $encoderFactory;
         $this->usernameCanonicalizer = $usernameCanonicalizer;
