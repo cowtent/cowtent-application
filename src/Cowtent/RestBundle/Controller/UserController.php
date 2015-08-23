@@ -25,7 +25,7 @@ class UserController extends AbstractController
 
     /**
      * @Rest\Post("/add")
-     * @return bool
+     * @return User
      */
     public function addAction(Request $request)
     {
