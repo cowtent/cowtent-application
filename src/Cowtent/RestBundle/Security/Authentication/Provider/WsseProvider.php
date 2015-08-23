@@ -46,7 +46,7 @@ class WsseProvider implements AuthenticationProviderInterface
         if ($user instanceof User) {
             $secret = $user->getPassword();
         } elseif ($user instanceof Application) {
-            $secret = $user->getApiKey().'{'.$user->getSalt().'}';
+            $secret = $user->getApiKey() . '{' . $user->getSalt() . '}';
         }
 
         if ($user && $this->validateDigest($token->digest, $token->nonce, $token->created, $secret)) {
@@ -86,8 +86,8 @@ class WsseProvider implements AuthenticationProviderInterface
 
         // Validate that the nonce is *not* used in the last 5 minutes
         // if it has, this could be a replay attack
-        if (file_exists($this->cacheDir.'/'.$nonce)) {
-            $duration = intval(file_get_contents($this->cacheDir.'/'.$nonce));
+        if (file_exists($this->cacheDir . '/' . $nonce)) {
+            $duration = intval(file_get_contents($this->cacheDir . '/' . $nonce));
 
             if (($duration + 300) > time()) {
                 throw new NonceExpiredException('Previously used nonce detected');
@@ -98,10 +98,10 @@ class WsseProvider implements AuthenticationProviderInterface
         if (!is_dir($this->cacheDir)) {
             mkdir($this->cacheDir, 0777, true);
         }
-        file_put_contents($this->cacheDir.'/'.$nonce, time());
+        file_put_contents($this->cacheDir . '/' . $nonce, time());
 
         // Validate Secret
-        $expected = base64_encode(sha1(base64_decode($nonce).$created.$secret, true));
+        $expected = base64_encode(sha1(base64_decode($nonce) . $created . $secret, true));
 
         return StringUtils::equals($expected, $digest);
     }

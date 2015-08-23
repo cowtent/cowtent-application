@@ -65,7 +65,7 @@ class ScriptHandler
             $warmup = ' --no-warmup';
         }
 
-        static::executeCommand($event, $consoleDir, 'cache:clear'.$warmup, $options['process-timeout']);
+        static::executeCommand($event, $consoleDir, 'cache:clear' . $warmup, $options['process-timeout']);
     }
 
     /**
@@ -109,17 +109,17 @@ class ScriptHandler
 
         if ($options['symfony-assets-install'] == 'symlink') {
             $dir = getcwd();
-            $fs->symlink($dir.'/'.$vendorDir.'/adminlte/bootstrap', $destinationDir.'/bootstrap');
-            $fs->symlink($dir.'/'.$vendorDir.'/adminlte/plugins', $destinationDir.'/plugins');
-            $fs->symlink($dir.'/'.$vendorDir.'/adminlte/dist/css', $destinationDir.'/css');
-            $fs->symlink($dir.'/'.$vendorDir.'/adminlte/dist/js', $destinationDir.'/js');
-            $fs->symlink($dir.'/'.$vendorDir.'/adminlte/dist/img', $destinationDir.'/img');
+            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/bootstrap', $destinationDir . '/bootstrap');
+            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/plugins', $destinationDir . '/plugins');
+            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/css', $destinationDir . '/css');
+            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/js', $destinationDir . '/js');
+            $fs->symlink($dir . '/' . $vendorDir . '/adminlte/dist/img', $destinationDir . '/img');
         } elseif ($options['symfony-assets-install'] == 'relative') {
-            $fs->symlink('../../'.$vendorDir.'/adminlte/bootstrap', $destinationDir.'/bootstrap');
-            $fs->symlink('../../'.$vendorDir.'/adminlte/plugins', $destinationDir.'/plugins');
-            $fs->symlink('../../'.$vendorDir.'/adminlte/dist/css', $destinationDir.'/css');
-            $fs->symlink('../../'.$vendorDir.'/adminlte/dist/js', $destinationDir.'/js');
-            $fs->symlink('../../'.$vendorDir.'/adminlte/dist/img', $destinationDir.'/img');
+            $fs->symlink('../../' . $vendorDir . '/adminlte/bootstrap', $destinationDir . '/bootstrap');
+            $fs->symlink('../../' . $vendorDir . '/adminlte/plugins', $destinationDir . '/plugins');
+            $fs->symlink('../../' . $vendorDir . '/adminlte/dist/css', $destinationDir . '/css');
+            $fs->symlink('../../' . $vendorDir . '/adminlte/dist/js', $destinationDir . '/js');
+            $fs->symlink('../../' . $vendorDir . '/adminlte/dist/img', $destinationDir . '/img');
         } else {
             $event->getIO()->write(sprintf('Copy mechanism specified in composer.json is not supported.'));
         }
@@ -133,13 +133,13 @@ class ScriptHandler
     {
         $php = escapeshellarg(static::getPhp(false));
         $phpArgs = implode(' ', array_map('escapeshellarg', static::getPhpArguments()));
-        $console = escapeshellarg($consoleDir.'/console');
+        $console = escapeshellarg($consoleDir . '/console');
         if ($event->getIO()->isDecorated()) {
             $console .= ' --ansi';
         }
 
-        $process = new Process($php.($phpArgs ? ' '.$phpArgs : '').' '.$console.' '.$cmd, null, null, null, $timeout);
-        $process->run(function ($type, $buffer) use ($event) { $event->getIO()->write($buffer, false); });
+        $process = new Process($php . ($phpArgs ? ' ' . $phpArgs : '') . ' ' . $console . ' ' . $cmd, null, null, null, $timeout);
+        $process->run(function($type, $buffer) use ($event) { $event->getIO()->write($buffer, false); });
         if (!$process->isSuccessful()) {
             throw new \RuntimeException(sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd)));
         }
@@ -176,7 +176,7 @@ class ScriptHandler
         }
 
         if (false !== $ini = php_ini_loaded_file()) {
-            $arguments[] = '--php-ini='.$ini;
+            $arguments[] = '--php-ini=' . $ini;
         }
 
         return $arguments;
