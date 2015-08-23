@@ -43,6 +43,7 @@ class UserController extends AbstractController
             $user->setUsername($request->request->get('username'));
             $user->setPlainPassword($request->request->get('password'));
             $user->setEmail($request->request->get('email'));
+            $user->setEnabled(TRUE);
             $user->setAccount($account);
 
             /** @var UserManager $manager */

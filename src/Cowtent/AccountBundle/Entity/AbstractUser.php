@@ -135,7 +135,7 @@ abstract class AbstractUser implements AdvancedUserInterface, EquatableInterface
      */
     public function __construct()
     {
-        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->salt = $this->generateSalt();
         $this->enabled = false;
         $this->locked = false;
         $this->expired = false;
@@ -464,5 +464,13 @@ abstract class AbstractUser implements AdvancedUserInterface, EquatableInterface
     public function __toString()
     {
         return (string) $this->getUsername();
+    }
+
+    /**
+     * @return string
+     */
+    protected function generateSalt()
+    {
+        return base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 }

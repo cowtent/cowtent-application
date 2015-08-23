@@ -27,8 +27,9 @@ class ApplicationController extends AbstractController
     }
 
     /**
+     * @param Request $request
      * @Rest\Post("/add")
-     * @return bool
+     * @return mixed
      */
     public function addAction(Request $request)
     {
@@ -37,6 +38,7 @@ class ApplicationController extends AbstractController
 
             $application = new Application();
             $application->setUsername($request->request->get('name'));
+            $application->setEnabled(TRUE);
             $application->setAccount($account);
 
             /** @var ApplicationManager $manager */
@@ -49,6 +51,39 @@ class ApplicationController extends AbstractController
             $em->flush();
 
             return $application;
+        } catch(\Exception $e) {
+            return array(get_class($e), $e->getCode(), $e->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @Rest\Post("/resetSalt")
+     * @return mixed
+     */
+    public function resetSaltAction(Request $request)
+    {
+        try {
+            $account = $this->getAccount();
+
+            $repository = $this->getDoctrine()->getRepository('CowtentAccountBundle:Application');
+            $criterias  = array(
+              'account' => $account,
+              'apiKey'  => $request->request->get('apiKey'),
+            );
+
+            /** @var Application $application */
+            $application = $repository->findOneBy($criterias);
+            $application->resetSalt();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($application);
+            $em->flush();
+
+            return array(
+              'apiKey' => $request->request->get('apiKey'),
+              'salt' => $application->getSalt(),
+            );
         } catch(\Exception $e) {
             return array(get_class($e), $e->getCode(), $e->getMessage());
         }

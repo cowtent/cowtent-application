@@ -91,6 +91,14 @@ class Application extends AbstractUser
     }
 
     /**
+     *
+     */
+    public function resetSalt()
+    {
+        $this->salt = $this->generateSalt();
+    }
+
+    /**
      * @param UserInterface $user
      *
      * @return bool
