@@ -167,7 +167,7 @@ class ScriptHandler
         );
 
         $process->run(
-            function ($type, $buffer) use ($event) {
+            function($type, $buffer) use ($event) {
                 $event->getIO()->write($buffer, false);
             }
         );
@@ -196,9 +196,9 @@ class ScriptHandler
     }
 
     /**
-     * @param bool|true $includeArgs
+     * @param boolean $includeArgs
      *
-     * @return false|string
+     * @return string
      */
     protected static function getPhp($includeArgs = true)
     {
