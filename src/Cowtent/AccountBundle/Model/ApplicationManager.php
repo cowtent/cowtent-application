@@ -29,8 +29,11 @@ class ApplicationManager
      * @param SecureRandomInterface   $secureRandom
      * @param CanonicalizerInterface  $nameCanonicalizer
      */
-    public function __construct(Registry $doctrine, SecureRandomInterface $secureRandom, CanonicalizerInterface $nameCanonicalizer)
-    {
+    public function __construct(
+        Registry $doctrine,
+        SecureRandomInterface $secureRandom,
+        CanonicalizerInterface $nameCanonicalizer
+    ) {
         $this->doctrine = $doctrine;
         $this->secureRandom = $secureRandom;
         $this->nameCanonicalizer = $nameCanonicalizer;
