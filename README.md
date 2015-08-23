@@ -14,9 +14,9 @@ Main features:
  - Sync functions between branches on a same workspace
  - ...
 
-Rest Api is built using Json format exchange with [WSSE security authentication](http://symfony.com/doc/current/cookbook/security/custom_authentication_provider.html#meet-wsse).
-
 **Still under hard development !**
+
+Rest Api is built using Json format exchange with [WSSE security authentication](http://symfony.com/doc/current/cookbook/security/custom_authentication_provider.html#meet-wsse).
 
 ## Requirements
 
