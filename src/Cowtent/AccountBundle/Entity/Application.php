@@ -97,30 +97,4 @@ class Application extends AbstractUser
     {
         $this->salt = $this->generateSalt();
     }
-
-    /**
-     * @param UserInterface $user
-     *
-     * @return bool
-     */
-    public function isEqualTo(UserInterface $user)
-    {
-        if (!$user instanceof Application) {
-            return false;
-        }
-
-        if ($this->password !== $user->getPassword()) {
-            return false;
-        }
-
-        if ($this->salt !== $user->getSalt()) {
-            return false;
-        }
-
-        if ($this->name !== $user->getUsername()) {
-            return false;
-        }
-
-        return true;
-    }
 }

@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Security\Core\User\EquatableInterface;
 
 /**
  * @ORM\Entity
@@ -16,7 +15,7 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
  * @ORM\DiscriminatorColumn(name="discriminator", type="string")
  * @ORM\DiscriminatorMap({"user" = "User", "application" = "Application"})
  */
-abstract class AbstractUser implements AdvancedUserInterface, EquatableInterface
+abstract class AbstractUser implements AdvancedUserInterface
 {
     const ROLE_DEFAULT = 'ROLE_USER';
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';

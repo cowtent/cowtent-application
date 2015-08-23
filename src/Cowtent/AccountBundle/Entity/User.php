@@ -198,30 +198,4 @@ class User extends AbstractUser
 
         return $this;
     }
-    
-    /**
-     * @param UserInterface $user
-     *
-     * @return bool
-     */
-    public function isEqualTo(UserInterface $user)
-    {
-        if (!$user instanceof User) {
-            return false;
-        }
-
-        if ($this->password !== $user->getPassword()) {
-            return false;
-        }
-
-        if ($this->salt !== $user->getSalt()) {
-            return false;
-        }
-
-        if ($this->username !== $user->getUsername()) {
-            return false;
-        }
-
-        return true;
-    }
 }
