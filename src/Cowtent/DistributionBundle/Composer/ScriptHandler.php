@@ -11,11 +11,11 @@
 
 namespace Cowtent\DistributionBundle\Composer;
 
+use Composer\Script\CommandEvent;
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
-use Composer\Script\CommandEvent;
+use Symfony\Component\Process\Process;
 
 class ScriptHandler
 {
@@ -31,6 +31,10 @@ class ScriptHandler
         'symfony-cache-warmup' => false,
     );
 
+    /**
+     * @param string $configName
+     * @param string $actionName
+     */
     protected static function hasDirectory(CommandEvent $event, $configName, $path, $actionName)
     {
         if (!is_dir($path)) {
@@ -121,6 +125,10 @@ class ScriptHandler
         }
     }
 
+    /**
+     * @param string $consoleDir
+     * @param string $cmd
+     */
     protected static function executeCommand(CommandEvent $event, $consoleDir, $cmd, $timeout = 300)
     {
         $php = escapeshellarg(static::getPhp(false));
