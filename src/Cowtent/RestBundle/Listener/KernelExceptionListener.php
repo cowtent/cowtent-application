@@ -69,7 +69,7 @@ class KernelExceptionListener
             $data = array(
                 'error' => array(
                 'code' => ($code ? $code : -1),
-                'message' => 'Internal Server Error / '.$exception->getMessage(),
+                'message' => 'Internal Server Error / ' . $exception->getMessage(),
                 ),
             );
 

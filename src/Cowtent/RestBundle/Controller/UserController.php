@@ -56,7 +56,7 @@ class UserController extends AbstractController
             $em->flush();
 
             return $user;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return array(get_class($e), $e->getCode(), $e->getMessage());
         }
     }
