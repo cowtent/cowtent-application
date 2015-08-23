@@ -8,7 +8,7 @@ This will generate both an **Api Key** and a **Secret**.
 ## Security
 
 WSSE protocol is quite secure.
-But to increase a bit more security level, it's recommanded to enable HTTPS protocol on each call.
+But to increase a bit more security level, it's recommanded to enable HTTPS protocol on each request implementing SSL certificate on your web server *(Apache, Nginx, ...)*.
 
 ## Call Rest Api using WSSE headers
 
