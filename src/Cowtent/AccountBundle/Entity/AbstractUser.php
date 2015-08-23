@@ -142,6 +142,11 @@ abstract class AbstractUser implements AdvancedUserInterface
         $this->credentialsExpired = false;
     }
 
+    /**
+     * @param string $role
+     *
+     * @return self
+     */
     public function addRole($role)
     {
         $role = strtoupper($role);
@@ -167,13 +172,16 @@ abstract class AbstractUser implements AdvancedUserInterface
     /**
      * Returns the user unique id.
      *
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getSalt()
     {
         return $this->salt;
@@ -189,6 +197,9 @@ abstract class AbstractUser implements AdvancedUserInterface
         return $this->password;
     }
 
+    /**
+     * @return string
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
@@ -243,6 +254,9 @@ abstract class AbstractUser implements AdvancedUserInterface
         return in_array(strtoupper($role), $this->getRoles(), true);
     }
 
+    /**
+     * @return bool
+     */
     public function isAccountNonExpired()
     {
         if (true === $this->expired) {
@@ -256,11 +270,17 @@ abstract class AbstractUser implements AdvancedUserInterface
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function isAccountNonLocked()
     {
         return !$this->locked;
     }
 
+    /**
+     * @return bool
+     */
     public function isCredentialsNonExpired()
     {
         if (true === $this->credentialsExpired) {
@@ -274,31 +294,51 @@ abstract class AbstractUser implements AdvancedUserInterface
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function isCredentialsExpired()
     {
         return !$this->isCredentialsNonExpired();
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return $this->enabled;
     }
 
+    /**
+     * @return bool
+     */
     public function isExpired()
     {
         return !$this->isAccountNonExpired();
     }
 
+    /**
+     * @return bool
+     */
     public function isLocked()
     {
         return !$this->isAccountNonLocked();
     }
 
+    /**
+     * @return bool
+     */
     public function isSuperAdmin()
     {
         return $this->hasRole(static::ROLE_SUPER_ADMIN);
     }
 
+    /**
+     * @param \Cowtent\AccountBundle\Entity\AbstractUser|null $user
+     *
+     * @return bool
+     */
     public function isUser(AbstractUser $user = null)
     {
         return null !== $user && $this->getId() === $user->getId();
@@ -306,6 +346,8 @@ abstract class AbstractUser implements AdvancedUserInterface
 
     /**
      * @param string $role
+     *
+     * @return self
      */
     public function removeRole($role)
     {
@@ -343,6 +385,8 @@ abstract class AbstractUser implements AdvancedUserInterface
 
     /**
      * @param boolean $boolean
+     *
+     * @return self
      */
     public function setEnabled($boolean)
     {
@@ -379,6 +423,8 @@ abstract class AbstractUser implements AdvancedUserInterface
 
     /**
      * @param string $password
+     *
+     * @return self
      */
     public function setPassword($password)
     {
@@ -387,6 +433,11 @@ abstract class AbstractUser implements AdvancedUserInterface
         return $this;
     }
 
+    /**
+     * @param boolean $boolean
+     *
+     * @return self
+     */
     public function setSuperAdmin($boolean)
     {
         if (true === $boolean) {
@@ -398,6 +449,11 @@ abstract class AbstractUser implements AdvancedUserInterface
         return $this;
     }
 
+    /**
+     * @param string $password
+     *
+     * @return self
+     */
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
@@ -405,6 +461,11 @@ abstract class AbstractUser implements AdvancedUserInterface
         return $this;
     }
 
+    /**
+     * @param \DateTime $time
+     *
+     * @return self
+     */
     public function setLastLogin(\DateTime $time)
     {
         $this->lastLogin = $time;
@@ -412,6 +473,11 @@ abstract class AbstractUser implements AdvancedUserInterface
         return $this;
     }
 
+    /**
+     * @param boolean $boolean
+     *
+     * @return self
+     */
     public function setLocked($boolean)
     {
         $this->locked = $boolean;
@@ -419,6 +485,11 @@ abstract class AbstractUser implements AdvancedUserInterface
         return $this;
     }
 
+    /**
+     * @param array $roles
+     *
+     * @return self
+     */
     public function setRoles(array $roles)
     {
         $this->roles = array();
@@ -433,7 +504,7 @@ abstract class AbstractUser implements AdvancedUserInterface
     /**
      * Set account
      *
-     * @param Account $account
+     * @param Account|null $account
      * @return self
      */
     public function setAccount(Account $account = null)
@@ -446,7 +517,7 @@ abstract class AbstractUser implements AdvancedUserInterface
     /**
      * Get account
      *
-     * @return Account
+     * @return Account|null
      */
     public function getAccount()
     {
@@ -469,6 +540,9 @@ abstract class AbstractUser implements AdvancedUserInterface
         return $this->updatedAt;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->getUsername();

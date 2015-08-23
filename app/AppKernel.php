@@ -23,7 +23,6 @@ class AppKernel extends Kernel
           new Cowtent\AccountBundle\CowtentAccountBundle(),
           new Cowtent\ApplicationBundle\CowtentApplicationBundle(),
           new Cowtent\DistributionBundle\CowtentDistributionBundle(),
-          new Cowtent\RemoteBundle\CowtentRemoteBundle(),
           new Cowtent\RestBundle\CowtentRestBundle(),
         );
 
