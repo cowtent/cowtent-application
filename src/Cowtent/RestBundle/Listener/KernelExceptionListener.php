@@ -19,7 +19,8 @@ class KernelExceptionListener
     /**
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger) {
+    public function __construct(LoggerInterface $logger)
+    {
         $this->logger = $logger;
     }
 
@@ -32,33 +33,32 @@ class KernelExceptionListener
         $code = $exception->getCode();
 
         $debug = array(
-          'class'   => get_class($exception),
-          'code'    => $code,
-          'message' => $exception->getMessage(),
+            'class'   => get_class($exception),
+            'code'    => $code,
+            'message' => $exception->getMessage(),
         );
-        $this->logger->err(print_r($debug, TRUE));
+        $this->logger->err(print_r($debug, true));
 
         // HttpExceptionInterface est un type d'exception spécial qui
         // contient le code statut et les détails de l'entête
         if ($exception instanceof NotFoundHttpException) {
             $data = array(
-              'error' => array(
+                'error' => array(
                 'code' => ($code ? $code : -3),
                 'message' => $exception->getMessage(),
-              ),
+                ),
             );
 
             $response = new JsonResponse($data);
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
             $response->headers->set('Content-Type', 'application/json');
-        }
-        elseif ($exception instanceof HttpExceptionInterface) {
+        } elseif ($exception instanceof HttpExceptionInterface) {
             $data = array(
-              'error' => array(
+                'error' => array(
                 'code' => ($code ? $code : -2),
                 'message' => $exception->getMessage(),
-              ),
+                ),
             );
 
             $response = new JsonResponse($data);
@@ -67,10 +67,10 @@ class KernelExceptionListener
             $response->headers->set('Content-Type', 'application/json');
         } else {
             $data = array(
-              'error' => array(
+                'error' => array(
                 'code' => ($code ? $code : -1),
                 'message' => 'Internal Server Error / '.$exception->getMessage(),
-              ),
+                ),
             );
 
             $response = new JsonResponse($data);

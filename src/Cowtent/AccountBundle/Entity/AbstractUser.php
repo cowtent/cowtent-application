@@ -305,6 +305,9 @@ abstract class AbstractUser implements AdvancedUserInterface, EquatableInterface
         return null !== $user && $this->getId() === $user->getId();
     }
 
+    /**
+     * @param string $role
+     */
     public function removeRole($role)
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
@@ -339,6 +342,9 @@ abstract class AbstractUser implements AdvancedUserInterface, EquatableInterface
         return $this;
     }
 
+    /**
+     * @param boolean $boolean
+     */
     public function setEnabled($boolean)
     {
         $this->enabled = (Boolean) $boolean;
@@ -372,6 +378,9 @@ abstract class AbstractUser implements AdvancedUserInterface, EquatableInterface
         return $this;
     }
 
+    /**
+     * @param string $password
+     */
     public function setPassword($password)
     {
         $this->password = $password;

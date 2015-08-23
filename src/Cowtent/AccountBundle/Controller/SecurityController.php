@@ -29,11 +29,11 @@ class SecurityController extends Controller
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
         return $this->render(
-          'CowtentAccountBundle:Security:login.html.twig',
-          array(
+            'CowtentAccountBundle:Security:login.html.twig',
+            array(
             'last_username' => $lastUsername,
             'error' => $error,
-          )
+            )
         );
     }
 

@@ -220,7 +220,7 @@ class Account
     /**
      * Get applications
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Application[]
      */
     public function getApplications()
     {
@@ -253,7 +253,7 @@ class Account
     /**
      * Get groups
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Group[]
      */
     public function getGroups()
     {

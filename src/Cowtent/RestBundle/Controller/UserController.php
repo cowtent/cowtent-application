@@ -4,9 +4,9 @@ namespace Cowtent\RestBundle\Controller;
 
 use Cowtent\AccountBundle\Entity\User;
 use Cowtent\AccountBundle\Model\UserManager;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  *
@@ -26,7 +26,7 @@ class UserController extends AbstractController
         return $user;
 
         return array(
-          'foo' => 'bar',
+            'foo' => 'bar',
         );
     }
 
@@ -43,7 +43,7 @@ class UserController extends AbstractController
             $user->setUsername($request->request->get('username'));
             $user->setPlainPassword($request->request->get('password'));
             $user->setEmail($request->request->get('email'));
-            $user->setEnabled(TRUE);
+            $user->setEnabled(true);
             $user->setAccount($account);
 
             /** @var UserManager $manager */
