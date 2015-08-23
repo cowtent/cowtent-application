@@ -24,10 +24,10 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Rest\Post("/add")
+     * @Rest\Post("/create")
      * @return User
      */
-    public function addAction(Request $request)
+    public function createAction(Request $request)
     {
         $account = $this->getAccount();
 

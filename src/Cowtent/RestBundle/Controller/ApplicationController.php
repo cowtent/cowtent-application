@@ -57,7 +57,13 @@ class ApplicationController extends AbstractController
             );
         }
 
-        return $application;
+        $response = array(
+            'name'    => $application->getUsername(),
+            'api_key' => $application->getApiKey(),
+            'secret'  => $application->getSalt(),
+        );
+
+        return $response;
     }
 
     /**
