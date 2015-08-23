@@ -54,9 +54,9 @@ class ApplicationController extends AbstractController
             $em->flush();
         } catch (\Exception $e) {
             return array(
-              get_class($e),
-              $e->getCode(),
-              $e->getMessage(),
+                get_class($e),
+                $e->getCode(),
+                $e->getMessage(),
             );
         }
 
@@ -76,8 +76,8 @@ class ApplicationController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository('CowtentAccountBundle:Application');
         $criterias  = array(
-          'account' => $account,
-          'apiKey'  => $request->request->get('api_key'),
+            'account' => $account,
+            'apiKey'  => $request->request->get('api_key'),
         );
 
         /** @var Application $application */
@@ -94,8 +94,8 @@ class ApplicationController extends AbstractController
         $em->flush();
 
         return array(
-          'apiKey' => $request->request->get('api_key'),
-          'salt'   => $application->getSalt(),
+            'apiKey' => $request->request->get('api_key'),
+            'salt'   => $application->getSalt(),
         );
     }
 }

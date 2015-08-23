@@ -9,8 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  */
@@ -30,20 +30,20 @@ class UserController extends BaseController
         return $user;
 
         $data = array(
-          'id'            => $user->getId(),
-          'username'      => $user->getUsername(),
-          'email'         => $user->getEmail(),
-          'last_login_at' => self::formatDatetime($user->getLastLogin()),
-          'created_at'    => self::formatDatetime($user->getCreated()),
-          'updated_at'    => self::formatDatetime($user->getUpdated()),
-          'account'       => self::formatAccount($user->getAccount()),
-          'groups'        => $user->getGroupNames(),
+            'id'            => $user->getId(),
+            'username'      => $user->getUsername(),
+            'email'         => $user->getEmail(),
+            'last_login_at' => self::formatDatetime($user->getLastLogin()),
+            'created_at'    => self::formatDatetime($user->getCreated()),
+            'updated_at'    => self::formatDatetime($user->getUpdated()),
+            'account'       => self::formatAccount($user->getAccount()),
+            'groups'        => $user->getGroupNames(),
         );
 
         $view = $this->view($data, 200)
-          ->setTemplate('CowtentRemoteBundle:User:view.html.twig')
-          ->setTemplateVar('data')
-          ->setTemplateData($data);
+            ->setTemplate('CowtentRemoteBundle:User:view.html.twig')
+            ->setTemplateVar('data')
+            ->setTemplateData($data);
 
         return $this->handleView($view);
     }
@@ -97,7 +97,7 @@ class UserController extends BaseController
     public function logoutAction()
     {
         $data = array(
-          '',
+            '',
         );
 
         return $this->renderJson($data);
