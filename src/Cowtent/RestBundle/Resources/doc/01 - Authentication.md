@@ -5,6 +5,11 @@
 To use Rest Api, you need first to create an application, restricted to a workspace or not.
 This will generate both an **Api Key** and a **Secret**.
 
+## Security
+
+WSSE protocol is quite secure.
+But to increase a bit more security level, it's recommanded to enable HTTPS protocol on each call.
+
 ## Call Rest Api using WSSE headers
 
 Please note this sample code will change the secret key.
