@@ -5,6 +5,11 @@
 To use Rest Api, you need first to create an application, restricted to a workspace or not.
 This will generate both an **Api Key** and a **Secret**.
 
+## Security
+
+WSSE protocol is quite secure.
+But to increase a bit more security level, it's recommanded to enable HTTPS protocol on each request implementing SSL certificate on your web server *(Apache, Nginx, ...)*.
+
 ## Call Rest Api using WSSE headers
 
 Please note this sample code will change the secret key.
@@ -41,7 +46,7 @@ $data = array(
 );
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'http://mycaas.local/app_dev.php/api/application/resetSecret');
+curl_setopt($ch, CURLOPT_URL, 'http://localhost/app_dev.php/api/application/resetSecret');
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
@@ -59,3 +64,8 @@ if (false === $result) {
     var_dump($result);
 }
 ```
+
+## Error handler
+
+Todo
+
