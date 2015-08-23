@@ -20,9 +20,6 @@ class ApplicationController extends AbstractController
      */
     public function indexAction()
     {
-//        throw new \Exception('test');
-//        return new Response('coucou');
-
         $user = $this->getUser();
 
         return $user;

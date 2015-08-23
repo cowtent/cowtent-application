@@ -224,7 +224,7 @@ abstract class AbstractUser implements AdvancedUserInterface
     {
         $roles = $this->roles;
 
-        if (method_exists($this, 'getGroups')) {
+        if ($this instanceof User) {
             /** @var Group $group */
             foreach ($this->getGroups() as $group) {
                 $roles = array_merge($roles, $group->getRoles());
@@ -517,7 +517,7 @@ abstract class AbstractUser implements AdvancedUserInterface
     /**
      * Get account
      *
-     * @return Account|null
+     * @return Account
      */
     public function getAccount()
     {
