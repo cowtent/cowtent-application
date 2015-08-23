@@ -64,3 +64,8 @@ if (false === $result) {
     var_dump($result);
 }
 ```
+
+## Error handler
+
+Todo
+
