@@ -19,6 +19,10 @@ Main features:
 
 Rest Api is built using Json format exchange with [WSSE security authentication](http://symfony.com/doc/current/cookbook/security/custom_authentication_provider.html#meet-wsse).
 
+## Documentation
+
+ - [Rest Api Documentation]()
+
 ## Requirements
 
 ### System
