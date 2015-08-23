@@ -41,7 +41,7 @@ $data = array(
 );
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'http://mycaas.local/app_dev.php/api/application/resetSecret');
+curl_setopt($ch, CURLOPT_URL, 'http://lolcahost/app_dev.php/api/application/resetSecret');
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
