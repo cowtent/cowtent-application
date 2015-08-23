@@ -11,6 +11,7 @@ Main features:
  - Multiple workspaces by account
  - Multiple branches by workspace *(eg: MASTER for Production environment)*
  - Polymorphic content types
+ - Content versionning
  - Sync functions between branches on a same workspace
  - ...
 
