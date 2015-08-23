@@ -3,6 +3,7 @@
 namespace Cowtent\AccountBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -45,16 +46,19 @@ class Account
     private $settings;
 
     /**
+     * @var Collection
      * @ORM\OneToMany(targetEntity="User", mappedBy="account")
      */
     private $users;
 
     /**
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Application", mappedBy="account")
      */
     private $applications;
 
     /**
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Group", mappedBy="account")
      */
     private $groups;
@@ -74,6 +78,16 @@ class Account
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->applications = new ArrayCollection();
+        $this->groups = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -153,13 +167,6 @@ class Account
     {
         return $this->settings;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
 
     /**
      * Add users
@@ -197,12 +204,12 @@ class Account
     /**
      * Add applications
      *
-     * @param Application $applications
+     * @param Application $application
      * @return Account
      */
-    public function addApplication(Application $applications)
+    public function addApplication(Application $application)
     {
-        $this->applications[] = $applications;
+        $this->applications[] = $application;
 
         return $this;
     }
@@ -210,17 +217,17 @@ class Account
     /**
      * Remove applications
      *
-     * @param Application $applications
+     * @param Application $application
      */
-    public function removeApplication(Application $applications)
+    public function removeApplication(Application $application)
     {
-        $this->applications->removeElement($applications);
+        $this->applications->removeElement($application);
     }
 
     /**
      * Get applications
      *
-     * @return Application[]
+     * @return Collection
      */
     public function getApplications()
     {
@@ -230,12 +237,12 @@ class Account
     /**
      * Add groups
      *
-     * @param Group $groups
+     * @param Group $group
      * @return Account
      */
-    public function addGroup(Group $groups)
+    public function addGroup(Group $group)
     {
-        $this->groups[] = $groups;
+        $this->groups[] = $group;
 
         return $this;
     }
@@ -243,17 +250,17 @@ class Account
     /**
      * Remove groups
      *
-     * @param Group $groups
+     * @param Group $group
      */
-    public function removeGroup(Group $groups)
+    public function removeGroup(Group $group)
     {
-        $this->groups->removeElement($groups);
+        $this->groups->removeElement($group);
     }
 
     /**
      * Get groups
      *
-     * @return Group[]
+     * @return Collection
      */
     public function getGroups()
     {
